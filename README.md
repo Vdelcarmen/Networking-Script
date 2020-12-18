@@ -33,7 +33,8 @@ cat /var/log/dpkg.log | grep -e "installed" -e "20-12-14"   ------ To get the up
 df -h
 
 -------
-We can check for reps in /etc/apt/sources/list.d directory and the etc/apt/sources.list file. If we travel to the /etc/apt/sources.list.d we can see installed repositories, here we can see the PPA repository we installed to update vim
+We can check for reps in /etc/apt/sources/list.d directory and the etc/apt/sources.list file. If we travel to the /etc/apt/sources.list.d we can see installed repositories, here we can see the PPA repository we installed to update vim.
+
 ls /etc/apt/sources.list.d
 cat /etc/apt/sources.list | grep ^[^#]  
 

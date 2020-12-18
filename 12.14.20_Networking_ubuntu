@@ -1,0 +1,57 @@
+#!/bin/bash
+
+#Name: Victor Delcarmen
+#Date: 12/14/20
+#System: Ubuntu
+
+#This script look for network informaio and redirects it to /root/NetworkDump
+
+
+hostname  >> /root/NetworkDump    # This command displays the current server name
+
+echo "--------------------------------------------------" >> /root/NetworkDump
+
+# This file contains information about the systems dns server, cat command looks into files
+cat /etc/resolv.conf >> /root/NetworkDump
+
+echo "---------------------------------------------------"  >> /root/NetworkDump
+
+
+#The ifocnfig command displays network info, the grep command seaches for specific keywords
+#In this case we are looking for inet which contains the ip address, head -1 display the first match
+
+ifconfig | grep inet | head -1 >> /root/NetworkDump  
+
+echo "-------------------------------------------------" >> /root/NetworkDump
+
+#Sources.list.d directory contains installed repos, using ls we can display them
+ls /etc/apt/sources.list.d  >> /root/NetworkDump 
+#The source.list file also contains repos by grepping at elimating the comments we can see them
+cat /etc/apt/sources.list | grep ^[^#] >> /root/NetworkDump
+
+
+echo "---------------------------------------------------" >> /root/NetworkDump
+
+#df command displays the ammount of storage in the system, the -h option makes it readable
+df -h   >> /root/NetworkDump
+
+echo "---------------------------------------------------" >> /root/NetworkDump
+
+#The uname command with -s option prints the Kernel name, the -v option print the version
+uname -sv  >> /root/NetworkDump
+
+echo "---------------------------------------------------" >> /root/NetworkDump
+
+#The dpkg.log contains all the update and installions made to the system
+#Using the grep command we can display installed packages from 20-12-14
+cat /var/log/dpkg.log | grep -e "installed"  -e "2020-12-14" >> /root/NetworkDump
+
+echo "---------------------------------------------------" >> /root/NetworkDump
+
+#The netstat command displays port information. The -tulpn options displays certain parts
+# -t display tcp ports, -u displays udp ports, -l displays listening ports, -p displays the program
+#The -n display the port number
+
+netstat -tulpn | grep LISTEN  >> /root/NetworkDump
+
+   

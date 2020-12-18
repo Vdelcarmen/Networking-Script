@@ -1,0 +1,53 @@
+#!/bin/bash
+
+#Name: Victor Delcarmen
+#Date: 12/14/20
+#System: CentOS
+
+#This script look for network informaio and redirects it to /root/NetworkDump
+
+
+hostname  >> /root/NetworkDump    # This command displays the current server name
+
+echo "--------------------------------------------------" >> /root/NetworkDump
+
+# This file contains information about the systems dns server, cat command looks into files
+cat /etc/resolv.conf >> /root/NetworkDump
+
+echo "---------------------------------------------------"  >> /root/NetworkDump
+
+
+#The ifocnfig command displays network info, the grep command seaches for specific keywords
+#In this case we are looking for inet which contains the ip address, head -1 display the first match
+
+ifconfig | grep inet | head -1 >> /root/NetworkDump  
+
+echo "-------------------------------------------------" >> /root/NetworkDump
+
+#Thw yum.repos directory contains all the repos, ls displays everything in the directory
+ls /etc/yum.repos.d >> /root/NetworkDump 
+
+echo "---------------------------------------------------" >> /root/NetworkDump
+
+#df command displays the ammount of storage in the system, the -h option makes it readable
+df -h   >> /root/NetworkDump
+
+echo "---------------------------------------------------" >> /root/NetworkDump
+
+#The uname command with -s option prints the Kernel name, the -v option print the version
+uname -sv  >> /root/NetworkDump
+
+echo "---------------------------------------------------" >> /root/NetworkDump
+
+#yum history displays all the times the yum utility has been used to install or update programs
+yum history >> /root/NetworkDump
+
+echo "---------------------------------------------------" >> /root/NetworkDump
+
+#The netstat command displays port information. The -tulpn options displays certain parts
+# -t display tcp ports, -u displays udp ports, -l displays listening ports, -p displays the program
+#The -n display the port number
+
+netstat -tulpn | grep LISTEN  >> /root/NetworkDump
+
+   
